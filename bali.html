@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali Indonesia Package - Dream Destinations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #343435 0%, #9e9d9f 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.05) 20px,
+                rgba(255,255,255,0.05) 40px
+            );
+            animation: slide 15s linear infinite;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero-image {
+            height: 280px;
+            background: url('images/img13.jpg') center/cover;
+            position: relative;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero-overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section-title {
+            color: #413f3f;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #212020;
+            padding-bottom: 0.5rem;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-card {
+            background: linear-gradient(45deg, #343435 0%, #9e9d9f 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .highlight-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .itinerary {
+            margin: 2rem 0;
+        }
+
+        .day-item {
+            background: #f8f9fa;
+            margin: 0.8rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border-left: 4px solid #2d2c2c;
+            transition: all 0.3s ease;
+        }
+
+        .day-header {
+            background: #454343;
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-header:hover {
+            background: #5f5c5c;
+        }
+
+        .day-content {
+            padding: 1rem;
+            display: none;
+        }
+
+        .day-content.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-list li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .activity-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .price-box {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin: 0.5rem 0;
+        }
+
+        .discount {
+            background: #28a745;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .per-person {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #ff6b6b;
+            outline: none;
+        }
+
+        .book-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .includes {
+            margin-top: 2rem;
+        }
+
+        .includes h4 {
+            color: #333;
+            margin-bottom: 0.8rem;
+        }
+
+        .includes ul {
+            list-style: none;
+        }
+
+        .includes ul li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .includes ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .excludes li::before {
+            content: '✗';
+            color: #dc3545;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .current-price {
+                font-size: 2rem;
+            }
+            
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>🌺 Discover Bali, Indonesia</h1>
+            <p>6 Days • 5 Nights • Island Paradise Experience</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="hero-image">
+                <div class="hero-overlay">
+                    <h2>Bali Cultural & Adventure Package</h2>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span>4.7/5 (186 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="section-title">Package Highlights</h3>
+                <div class="highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🏯</div>
+                        <h4>Temple Tours</h4>
+                        <p>Tanah Lot & Uluwatu</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🌾</div>
+                        <h4>Rice Terraces</h4>
+                        <p>Jatiluwih UNESCO Site</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">⛰️</div>
+                        <h4>Mount Batur</h4>
+                        <p>Sunrise Trek</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🏖️</div>
+                        <h4>Beach Time</h4>
+                        <p>Nusa Dua Coast</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Trip Itinerary</h3>
+                <div class="itinerary">
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(1)">
+                            <div>
+                                <strong>Day 1:</strong> Arrival & Ubud
+                            </div>
+                            <span id="icon-1">+</span>
+                        </div>
+                        <div class="day-content" id="day-1">
+                            <ul class="activity-list">
+                                <li>Airport pickup & hotel check-in</li>
+                                <li>Ubud Monkey Forest visit</li>
+                                <li>Traditional market exploration</li>
+                                <li>Welcome dinner with cultural show</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(2)">
+                            <div>
+                                <strong>Day 2:</strong> Temples & Rice Fields
+                            </div>
+                            <span id="icon-2">+</span>
+                        </div>
+                        <div class="day-content" id="day-2">
+                            <ul class="activity-list">
+                                <li>Tirta Empul holy spring temple</li>
+                                <li>Jatiluwih rice terraces tour</li>
+                                <li>Lake Beratan temple visit</li>
+                                <li>Coffee plantation experience</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(3)">
+                            <div>
+                                <strong>Day 3:</strong> Mount Batur Adventure
+                            </div>
+                            <span id="icon-3">+</span>
+                        </div>
+                        <div class="day-content" id="day-3">
+                            <ul class="activity-list">
+                                <li>Early morning volcano trek</li>
+                                <li>Sunrise viewing & breakfast</li>
+                                <li>Natural hot springs relaxation</li>
+                                <li>Traditional village visit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(4)">
+                            <div>
+                                <strong>Day 4:</strong> Southern Temples
+                            </div>
+                            <span id="icon-4">+</span>
+                        </div>
+                        <div class="day-content" id="day-4">
+                            <ul class="activity-list">
+                                <li>Tanah Lot temple at sunset</li>
+                                <li>Uluwatu cliff-top temple</li>
+                                <li>Kecak fire dance performance</li>
+                                <li>Seafood dinner at Jimbaran</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(5)">
+                            <div>
+                                <strong>Day 5:</strong> Beach & Relaxation
+                            </div>
+                            <span id="icon-5">+</span>
+                        </div>
+                        <div class="day-content" id="day-5">
+                            <ul class="activity-list">
+                                <li>Nusa Dua beach activities</li>
+                                <li>Water sports (optional)</li>
+                                <li>Spa treatment session</li>
+                                <li>Seminyak shopping & dining</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="day-item">
+                        <div class="day-header" onclick="toggleDay(6)">
+                            <div>
+                                <strong>Day 6:</strong> Departure
+                            </div>
+                            <span id="icon-6">+</span>
+                        </div>
+                        <div class="day-content" id="day-6">
+                            <ul class="activity-list">
+                                <li>Hotel check-out</li>
+                                <li>Last minute shopping</li>
+                                <li>Airport transfer</li>
+                                <li>Flight departure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Photo Gallery</h3>
+                <div class="image-gallery">
+                    <img src="images/img14.jpg" alt="Uluwatu Temple" class="gallery-img" onclick="showImage(this)">
+                    <img src="images/img15.jpg" alt="Rice Terraces" class="gallery-img" onclick="showImage(this)">
+                    <img src="images/img16.jpg" alt="Mount Batur" class="gallery-img" onclick="showImage(this)">
+                    <img src="images/img17.jpg" alt="Beach" class="gallery-img" onclick="showImage(this)">
+                    <img src="images/img18.jpg" alt="Tanah Lot" class="gallery-img" onclick="showImage(this)">
+                    <img src="images/img19.jpg" alt="Temple" class="gallery-img" onclick="showImage(this)">
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="price-box">
+                <div class="original-price">₹84,999</div>
+                <div class="current-price">₹67,999</div>
+                <span class="discount">20% OFF</span>
+                <div class="per-person">per person (twin sharing)</div>
+            </div>
+
+            <form class="booking-form" onsubmit="bookPackage(event)">
+                <div class="form-group">
+                    <label>Travel Date</label>
+                    <input type="date" id="travel-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Travelers</label>
+                    <select id="travelers" required>
+                        <option value="">Select</option>
+                        <option value="2">2 People</option>
+                        <option value="4">4 People</option>
+                        <option value="6">6 People</option>
+                        <option value="more">6+ People</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Room Preference</label>
+                    <select id="room-type" required>
+                        <option value="">Choose Room</option>
+                        <option value="standard">Standard Room</option>
+                        <option value="deluxe">Deluxe Room</option>
+                        <option value="suite">Suite</option>
+                    </select>
+                </div>
+                <button type="submit" class="book-btn">Book This Package</button>
+            </form>
+
+            <div class="includes">
+                <h4>Package Includes:</h4>
+                <ul>
+                    <li>5 nights hotel stay</li>
+                    <li>Daily breakfast</li>
+                    <li>All transfers</li>
+                    <li>Sightseeing tours</li>
+                    <li>English speaking guide</li>
+                    <li>Entrance fees</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Not Included:</h4>
+                <ul class="excludes">
+                    <li>Flight tickets</li>
+                    <li>Visa fees</li>
+                    <li>Travel insurance</li>
+                    <li>Personal expenses</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        function toggleDay(dayNum) {
+            const content = document.getElementById(`day-${dayNum}`);
+            const icon = document.getElementById(`icon-${dayNum}`);
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.textContent = '+';
+            } else {
+                content.classList.add('show');
+                icon.textContent = '-';
+            }
+        }
+
+        function showImage(img) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.8); display: flex; align-items: center;
+                justify-content: center; z-index: 1000; cursor: pointer;
+            `;
+            
+            const modalImg = document.createElement('img');
+            modalImg.src = img.src;
+            modalImg.style.cssText = 'max-width: 90%; max-height: 90%; border-radius: 10px;';
+            
+            modal.appendChild(modalImg);
+            document.body.appendChild(modal);
+            
+            modal.onclick = () => document.body.removeChild(modal);
+        }
+
+        function bookPackage(e) {
+            e.preventDefault();
+            
+            const date = document.getElementById('travel-date').value;
+            const travelers = document.getElementById('travelers').value;
+            const room = document.getElementById('room-type').value;
+            
+            if (date && travelers && room) {
+                const btn = document.querySelector('.book-btn');
+                btn.textContent = 'Processing...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`Booking Request Submitted!\n\nDestination: Bali, Indonesia\nDate: ${date}\nTravelers: ${travelers}\nRoom: ${room}\n\nOur team will contact you within 2 hours.`);
+                    btn.textContent = 'Book This Package';
+                    btn.disabled = false;
+                }, 1500);
+            }
+        }
+
+        // Set minimum date
+        document.getElementById('travel-date').min = new Date().toISOString().split('T')[0];
+
+        // Smooth scroll animations
+        window.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('.day-item, .highlight-card');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Initial setup
+        document.querySelectorAll('.day-item, .highlight-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        setTimeout(() => {
+            document.querySelectorAll('.highlight-card').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        }, 300);
+    </script>
+</body>
+</html>
